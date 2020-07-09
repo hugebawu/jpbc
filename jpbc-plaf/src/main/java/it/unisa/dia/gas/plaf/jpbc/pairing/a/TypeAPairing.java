@@ -1,5 +1,8 @@
 package it.unisa.dia.gas.plaf.jpbc.pairing.a;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
 import it.unisa.dia.gas.jpbc.Field;
 import it.unisa.dia.gas.jpbc.PairingParameters;
 import it.unisa.dia.gas.jpbc.Point;
@@ -9,122 +12,125 @@ import it.unisa.dia.gas.plaf.jpbc.field.quadratic.DegreeTwoExtensionQuadraticFie
 import it.unisa.dia.gas.plaf.jpbc.field.z.ZrField;
 import it.unisa.dia.gas.plaf.jpbc.pairing.AbstractPairing;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
-
 /**
  * @author Angelo De Caro (jpbclib@gmail.com)
  */
 public class TypeAPairing extends AbstractPairing {
-    public static final String NAF_MILLER_PROJECTTIVE_METHOD = "naf-miller-projective";
-    public static final String MILLER_PROJECTTIVE_METHOD = "miller-projective";
-    public static final String MILLER_AFFINE_METHOD = "miller-affine";
+	public static final String NAF_MILLER_PROJECTTIVE_METHOD = "naf-miller-projective";
+	public static final String MILLER_PROJECTTIVE_METHOD = "miller-projective";
+	public static final String MILLER_AFFINE_METHOD = "miller-affine";
 
-    protected int exp2;
-    protected int exp1;
-    protected int sign1;
+	protected int exp2;
+	protected int exp1;
+	protected int sign1;
 
-    protected BigInteger r;
-    protected BigInteger q; 
-    protected BigInteger h;
+	protected BigInteger r;
+	protected BigInteger q;
+	protected BigInteger h;
 
-    protected BigInteger phikOnr;
+	protected BigInteger phikOnr;
 
-    protected byte[] genNoCofac;
+	protected byte[] genNoCofac;
 
-    protected Field Fq;
-    protected Field<? extends Point> Fq2;
-    protected Field<? extends Point> Eq;
+	protected Field Fq;
+	protected Field<? extends Point> Fq2;
+	protected Field<? extends Point> Eq;
 
+	public TypeAPairing(SecureRandom random, PairingParameters params) {
+		super(random);
 
-    public TypeAPairing(SecureRandom random, PairingParameters params) {
-        super(random);
+		initParams(params);
+		initMap(params);
+		initFields();
+	}
 
-        initParams(params);
-        initMap(params);
-        initFields();
-    }
+	public TypeAPairing(PairingParameters params) {
+		this(new SecureRandom(), params);
+	}
 
-    public TypeAPairing(PairingParameters params) {
-        this(new SecureRandom(), params);
-    }
+	protected void initParams(PairingParameters curveParams) {
+		// validate the type
+		String type = curveParams.getString("type");
+		if (type == null || !"a".equalsIgnoreCase(type))
+			throw new IllegalArgumentException("Type not valid. Found '" + type + "'. Expected 'a'.");
 
+		// load params
+		exp2 = curveParams.getInt("exp2");
+		exp1 = curveParams.getInt("exp1");
+		sign1 = curveParams.getInt("sign1");
 
-    protected void initParams(PairingParameters curveParams) {
-        // validate the type
-        String type = curveParams.getString("type");
-        if (type == null || !"a".equalsIgnoreCase(type))
-            throw new IllegalArgumentException("Type not valid. Found '" + type + "'. Expected 'a'.");
+		r = curveParams.getBigInteger("r"); // r = 2^exp2 + sign1 * 2^exp1 + sign0 * 1
+		q = curveParams.getBigInteger("q"); // we work in E(F_q) (and E(F_q^2))
+		h = curveParams.getBigInteger("h"); // r * h = q + 1
 
-        // load params
-        exp2 = curveParams.getInt("exp2");
-        exp1 = curveParams.getInt("exp1");
-        sign1 = curveParams.getInt("sign1");
+		genNoCofac = curveParams.getBytes("genNoCofac", null);
+	}
 
-        r = curveParams.getBigInteger("r"); // r = 2^exp2 + sign1 * 2^exp1 + sign0 * 1
-        q = curveParams.getBigInteger("q"); // we work in E(F_q) (and E(F_q^2))
-        h = curveParams.getBigInteger("h");  // r * h = q + 1
+	protected void initFields() {
+		// Init Zr
+		Zr = initFp(r);
 
-        genNoCofac = curveParams.getBytes("genNoCofac", null);
-    }
+		// Init Fq
+		Fq = initFp(q);
 
+		// Init Eq
+		Eq = initEq();
 
-    protected void initFields() {
-        // Init Zr
-        Zr = initFp(r);
+		// Init Fq2
+		Fq2 = initFi();
 
-        // Init Fq
-        Fq = initFp(q);
+		// k=2, hence phi_k(q) = q + 1, phikOnr = (q+1)/r
+		phikOnr = h;
 
-        // Init Eq
-        Eq = initEq();
+		// Init G1, G2, GT
+		G1 = Eq;
+		G2 = G1;
+		GT = initGT();
+	}
 
-        // Init Fq2
-        Fq2 = initFi();
+	protected Field initFp(BigInteger order) {
+		return new ZrField(random, order);
+	}
 
-        // k=2, hence phi_k(q) = q + 1, phikOnr = (q+1)/r
-        phikOnr = h;
+	protected Field<? extends Point> initEq() {
+		// Remember the curve is: y^2 = x^3 + ax
+		return new CurveField<Field>(random, Fq.newOneElement(), // a
+				Fq.newZeroElement(), // b
+				r, // order
+				h, // cofactor (r*h)=q+1=#E(F_q)
+				genNoCofac);
+	}
 
-        // Init G1, G2, GT
-        G1 = Eq;
-        G2 = G1;
-        GT = initGT();
-    }
+	protected Field<? extends Point> initFi() {
+		return new DegreeTwoExtensionQuadraticField<Field>(random, Fq);
+	}
 
+	protected Field initGT() {
+		return new GTFiniteField(random, r, pairingMap, Fq2);
+	}
 
-    protected Field initFp(BigInteger order) {
-        return new ZrField(random, order);
-    }
+	protected void initMap(PairingParameters curveParams) {
+		String method = curveParams.getString("method", NAF_MILLER_PROJECTTIVE_METHOD);
 
-    protected Field<? extends Point> initEq() {
-        // Remember the curve is: y^2 = x^3 + ax
-        return new CurveField<Field>(random,
-                                     Fq.newOneElement(),   // a
-                                     Fq.newZeroElement(),  // b
-                                     r,                    // order
-                                     h,                    // cofactor  (r*h)=q+1=#E(F_q)
-                                     genNoCofac);
-    }
+		if (NAF_MILLER_PROJECTTIVE_METHOD.endsWith(method)) {
+			pairingMap = new TypeATateNafProjectiveMillerPairingMap(this);
+		} else if (MILLER_PROJECTTIVE_METHOD.equals(method))
+			pairingMap = new TypeATateProjectiveMillerPairingMap(this);
+		else if (MILLER_AFFINE_METHOD.equals(method))
+			pairingMap = new TypeATateAffineMillerPairingMap(this);
+		else
+			throw new IllegalArgumentException("Pairing method not recognized. Method = " + method);
+	}
 
-    protected Field<? extends Point> initFi() {
-        return new DegreeTwoExtensionQuadraticField<Field>(random, Fq);
-    }
+	public BigInteger getR() {
+		return r;
+	}
 
-    protected Field initGT() {
-        return new GTFiniteField(random, r, pairingMap, Fq2);
-    }
+	public BigInteger getQ() {
+		return q;
+	}
 
-
-    protected void initMap(PairingParameters curveParams) {
-        String method = curveParams.getString("method", NAF_MILLER_PROJECTTIVE_METHOD);
-
-        if (NAF_MILLER_PROJECTTIVE_METHOD.endsWith(method)) {
-            pairingMap = new TypeATateNafProjectiveMillerPairingMap(this);
-        } else if (MILLER_PROJECTTIVE_METHOD.equals(method))
-            pairingMap = new TypeATateProjectiveMillerPairingMap(this);
-        else if (MILLER_AFFINE_METHOD.equals(method))
-            pairingMap = new TypeATateAffineMillerPairingMap(this);
-        else
-            throw new IllegalArgumentException("Pairing method not recognized. Method = " + method);
-    }
+	public BigInteger getH() {
+		return h;
+	}
 }
