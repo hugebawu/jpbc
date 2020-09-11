@@ -10,8 +10,7 @@
 	<version>2.0.0</version>
 	<name>JPBC</name>
 	<url>http://gas.dia.unisa.it/</url>
-	<description>
-    </description>
+	<description>   </description>
 
 	<developers>
 		<developer>
@@ -48,10 +47,12 @@
 	</modules>
 
 	<repositories>
-		<repository>
+	<!-- 
+	    <repository>
 			<id>central</id>
 			<url>http://repo.maven.apache.org/maven2/</url>
 		</repository>
+	 -->		
 		<repository>
 			<id>java.net</id>
 			<url>https://maven.java.net/content/groups/public/</url>
