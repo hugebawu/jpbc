@@ -10,7 +10,6 @@
     <body>
 
         <links>
-            <item name="PBC" href="http://crypto.stanford.edu/pbc/"/>
             <item name="Sourceforge" href="http://sourceforge.net/projects/jpbc/"/>
             <item name="Piwik" href="http://sourceforge.net/apps/piwik/jpbc/index.php?module=CoreHome&amp;action=index&amp;idSite=2&amp;period=week&amp;date=today"/>
         </links>
@@ -63,7 +62,6 @@
                 </item>
             </item>
 
-            <item name="PBC Wrapper" href="/docs/pbcwrapper.html"/>
         </menu>
 
         <menu name="Crypto">

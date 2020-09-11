@@ -15,7 +15,6 @@
     <moduleSets>
         <moduleSet>
             <includes>
-                <include>it.unisa.dia.gas:jpbc-pbc</include>
                 <include>it.unisa.dia.gas:jpbc-crypto</include>
                 <include>it.unisa.dia.gas:jpbc-benchmark</include>
             </includes>
@@ -28,15 +27,12 @@
 
         <moduleSet>
             <includes>
-                <include>it.unisa.dia.gas:jpbc-android</include>
                 <include>it.unisa.dia.gas:jpbc-benchmark</include>
                 <include>it.unisa.dia.gas:jpbc-api</include>
                 <include>it.unisa.dia.gas:jpbc-plaf</include>
                 <include>it.unisa.dia.gas:jpbc-mm</include>
-                <include>it.unisa.dia.gas:jpbc-pbc</include>
                 <include>it.unisa.dia.gas:jpbc-crypto</include>
                 <include>it.unisa.dia.gas:jpbc-site-skin</include>
-                <include>it.unisa.dia.gas:jpbc-test</include>
             </includes>
             <sources>
                 <fileSets>
@@ -74,16 +70,6 @@
         </fileSet>
 
         <fileSet>
-            <directory>jpbc-test/target</directory>
-            <outputDirectory>jars/test</outputDirectory>
-            <includes>
-                <include>*tests.jar</include>
-            </includes>
-        </fileSet>
-
-        <fileSet>
-            <directory>jpbc-android</directory>
-            <outputDirectory>jpbc-android</outputDirectory>
         </fileSet>
 
         <fileSet>

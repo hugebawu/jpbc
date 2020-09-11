@@ -42,12 +42,9 @@
         <module>jpbc-api</module>
         <module>jpbc-plaf</module>
         <module>jpbc-mm</module>
-        <module>jpbc-pbc</module>
         <module>jpbc-crypto</module>
-        <module>jpbc-test</module>
         <module>jpbc-benchmark</module>
         <module>jpbc-site-skin</module>
-        <module>jpbc-android</module>
     </modules>
 
     <repositories>
