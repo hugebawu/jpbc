@@ -8,7 +8,6 @@
     <path id="runtime.classpath">
         <pathelement location="${basedir}/jars/jpbc-api-2.0.0.jar"/>
         <pathelement location="${basedir}/jars/jpbc-plaf-2.0.0.jar"/>
-        <pathelement location="${basedir}/jars/jpbc-pbc-2.0.0.jar"/>
         <pathelement location="${basedir}/jars/jpbc-crypto-2.0.0.jar"/>
         <pathelement location="${basedir}/jars/jpbc-mm-2.0.0.jar"/>
         <pathelement location="${basedir}/jars/jpbc-benchmark-2.0.0.jar"/>
