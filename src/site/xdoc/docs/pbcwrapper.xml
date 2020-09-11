@@ -31,16 +31,9 @@
 
             <ol>
                 <li>
-                    <span class="em">Install PBC: </span>
-                    <p>
-                        Look <a href="http://crypto.stanford.edu/pbc/manual/ch01.html">here</a> for instructions.
-                    </p>
-                </li>
-                <li>
                     <span class="em">Compile the Shared Library: </span>
                     <p>
                         Starting from a JPBC distribution, go to the
-                        <code>jpbc-pbc</code>
                         folder and type in a shell the following:
                     </p>
                     <source xml:space="preserve">

@@ -34,18 +34,11 @@
                 </p>
 
                 <p>
-                    Further information are available
-                    <a href="http://crypto.stanford.edu/pbc/manual/ch08s03.html">here</a>.
-                </p>
-
-                <p>
                     For Type A pairing, JPBC provides a ported and a PBC wrapped generator.
                     Here is the code to use them.
                 </p>
 
                 <source>import it.unisa.dia.gas.plaf.jpbc.pairing.a.TypeACurveGenerator;
-import it.unisa.dia.gas.plaf.jpbc.pbc.curve.PBCTypeACurveGenerator;
-
 int rBits = 160;
 int qBits = 512;
 
@@ -65,8 +58,6 @@ ParametersGenerator pbcPg = new PBCTypeACurveGenerator(rBits, qBits);
                 </p>
 
                 <source>import it.unisa.dia.gas.plaf.jpbc.pairing.a.TypeA1CurveGenerator;
-import it.unisa.dia.gas.plaf.jpbc.pbc.curve.PBCTypeA1CurveGenerator;
-
 // JPBC Type A1 pairing generator...
 ParametersGenerator parametersGenerator = new TypeA1CurveGenerator(
     3,  // the number of primes
@@ -83,17 +74,10 @@ ParametersGenerator pbcPg = new PBCTypeA1CurveGenerator();
             <subsection name="Type D">
                 These are ordinary curves with embedding degree 6, whose orders are prime or a prime multiplied by a small constant.
                 <p>
-                    Further information are available
-                    <a href="http://crypto.stanford.edu/pbc/manual/ch08s03.html">here</a>.
-                </p>
-
-                <p>
                     For Type D pairing, JPBC provides only the PBC wrapped generator.
                     Here is the code to use it.
                 </p>
                 
-                <source>import it.unisa.dia.gas.plaf.jpbc.pbc.curve.PBCTypeDCurveGenerator;
-
 // Init the generator...
 int discriminant = 9563;
 ParametersGenerator parametersGenerator = new PBCTypeDParametersGenerator(discriminant);
@@ -131,18 +115,11 @@ ParametersGenerator parametersGenerator = new PBCTypeDParametersGenerator(discri
                 </p>
 
                 <p>
-                    Further information are available
-                    <a href="http://crypto.stanford.edu/pbc/manual/ch08s03.html">here</a>.
-                </p>
-
-                <p>
                     For Type E pairing, JPBC provides a ported and a PBC wrapped generator.
                     Here is the code to use them.
                 </p>
 
                 <source>import it.unisa.dia.gas.plaf.jpbc.pairing.e.TypeECurveGenerator;
-import it.unisa.dia.gas.plaf.jpbc.pbc.curve.PBCTypeECurveGenerator;
-
 int rBits = 160;
 int qBits = 1024;
 
@@ -167,10 +144,6 @@ ParametersGenerator pbcPg = new PBCTypeECurveGenerator(rBits, qBits);
                     Discovered by Barreto and Naehrig, "Pairing-friendly elliptic curves of prime order".
                 </p>
 
-                <p>
-                    Further information are available
-                    <a href="http://crypto.stanford.edu/pbc/manual/ch08s03.html">here</a>.
-                </p>
 
                 <p>
                     For Type F pairing, JPBC provides a ported and a PBC wrapped generator.
@@ -178,8 +151,6 @@ ParametersGenerator pbcPg = new PBCTypeECurveGenerator(rBits, qBits);
                 </p>
 
                 <source>import it.unisa.dia.gas.plaf.jpbc.pairing.f.TypeFCurveGenerator;
-import it.unisa.dia.gas.plaf.jpbc.pbc.curve.PBCTypeFCurveGenerator;
-
 int rBits = 160;
 
 // JPBC Type F pairing generator...
@@ -197,16 +168,9 @@ ParametersGenerator pbcPg = new PBCTypeFCurveGenerator(rBits);
                 Discovered by Freeman, "Constructing pairing-friendly elliptic curves with embedding degree 10."
                 </p>
                 <p>
-                    Further information are available
-                    <a href="http://crypto.stanford.edu/pbc/manual/ch08s09.html">here</a>.
-                </p>
-
-                <p>
                     For Type G pairing, JPBC provides only the PBC wrapped generator.
                     Here is the code to use it.
                 </p>
-
-                <source>import it.unisa.dia.gas.plaf.jpbc.pbc.curve.PBCTypeGCurveGenerator;
 
 // Init the generator...
 int discriminant = 35707;

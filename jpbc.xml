@@ -8,7 +8,6 @@
     <path id="runtime.classpath">
         <pathelement location="${basedir}/jars/jpbc-api-2.0.0.jar"/>
         <pathelement location="${basedir}/jars/jpbc-plaf-2.0.0.jar"/>
-        <pathelement location="${basedir}/jars/jpbc-pbc-2.0.0.jar"/>
         <pathelement location="${basedir}/jars/jpbc-crypto-2.0.0.jar"/>
         <pathelement location="${basedir}/jars/jpbc-mm-2.0.0.jar"/>
         <pathelement location="${basedir}/jars/jpbc-benchmark-2.0.0.jar"/>
@@ -69,15 +68,6 @@
 
     <target name="typeA1">
         <java fork="true" classname="it.unisa.dia.gas.plaf.jpbc.pairing.a1.TypeA1CurveGenerator">
-            <arg line="${args}"/>
-            <classpath>
-                <path refid="runtime.classpath"/>
-            </classpath>
-        </java>
-    </target>
-
-    <target name="typeD">
-        <java fork="true" classname="it.unisa.dia.gas.plaf.jpbc.pbc.curve.PBCTypeDCurveGenerator">
             <arg line="${args}"/>
             <classpath>
                 <path refid="runtime.classpath"/>

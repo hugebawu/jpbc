@@ -42,9 +42,6 @@
                     <img style="border:1px solid black" alt="Maven" src="./images/logos/maven-feather.png"/>
                 </a>
 
-                <a href="http://crypto.stanford.edu/pbc">
-                  <img alt="PBC's" src="http://crypto.stanford.edu/pbc/pbclogo32x32.png"/>
-               </a>
             </div>
         </div>
 
@@ -54,21 +51,8 @@
             </p>
             <ul>
                 <li>
-                    <p>
-                        A <span class="em">Port</span> of the
-                        <a href="http://crypto.stanford.edu/pbc/">Pairing-Based Cryptography Library (PBC)</a>,
-                        library developed by <a href="http://crypto.stanford.edu/~blynn/">Ben Lynn</a>,
-                        to performs the mathematical operations underlying pairing-based cryptosystems
-                        directly in Java.
-                    </p>
                 </li>
                 <li>
-                    <p>
-                        A <span class="em">Wrapper</span>
-                        that enables the delegation of the pairing computation to the
-                        <a href="http://crypto.stanford.edu/pbc/">PBC</a> library
-                        to gain in performance.
-                    </p>
                 </li>
                 <li>
                     <p>

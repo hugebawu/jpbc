@@ -35,15 +35,6 @@
                         <span class="em"><code>jpbc_2.0.0-plaf.jar</code></span>.
             </p>
             <p>
-                To use the PBC Wrapper, a shared C library must be compiled
-                and installed properly as shown
-                <a href="http://crypto.stanford.edu/pbc/manual/ch08s03.html">here</a>.
-                Then, to use the wrapper, include the following jars:
-                    <span class="em"><code>jpbc_2.0.0-pbc.jar</code></span>
-                    and
-                    <span class="em"><code>jna-3.1.0.jar</code></span>.
-            </p>
-            <p>
                 To use the
                 <a href="docs/pairing.html">Multilinear Maps</a>,
                 include the following jar:
