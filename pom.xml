@@ -1,6 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+	http://maven.apache.org/maven-v4_0_0.xsd">
 
 
 	<modelVersion>4.0.0</modelVersion>
@@ -12,6 +13,7 @@
 	<url>http://gas.dia.unisa.it/</url>
 	<description>   </description>
 
+	<!--项目开发者列表 -->
 	<developers>
 		<developer>
 			<id>adecaro</id>
@@ -24,6 +26,7 @@
 		</developer>
 	</developers>
 
+	<!--该元素描述了项目所有License列表。 应该只列出该项目的license列表，不要列出依赖项目的 license列表。如果列出多个license，用户可以选择它们中的一个而不是接受所有license。 -->
 	<licenses>
 		<license>
 			<name>LGPL - GNU LESSER GENERAL PUBLIC LICENSE</name>
@@ -31,12 +34,14 @@
 		</license>
 	</licenses>
 
+	<!--SCM(Source Control Management)标签允许你配置你的代码库，供Maven web站点和其它插件使用。 -->
 	<scm>
 		<connection>scm:svn:https://jpbc.svn.sourceforge.net/svnroot/jpbc/trunk</connection>
 		<developerConnection>scm:svn:https://jpbc.svn.sourceforge.net/svnroot/jpbc/trunk</developerConnection>
 		<url>http://jpbc.svn.sourceforge.net/viewvc/jpbc/trunk/</url>
 	</scm>
 
+	<!--模块（有时称作子项目） 被构建成项目的一部分。列出的每个模块元素是指向该模块的目录的相对路径 -->
 	<modules>
 		<module>jpbc-api</module>
 		<module>jpbc-plaf</module>
@@ -46,20 +51,22 @@
 		<module>jpbc-site-skin</module>
 	</modules>
 
+	<!--发现依赖和扩展的远程仓库列表。 -->
 	<repositories>
-	<!-- 
-	    <repository>
+	    <!--参见repositories/repository元素 -->
+		<repository>
 			<id>central</id>
 			<url>http://repo.maven.apache.org/maven2/</url>
 		</repository>
-	 -->		
 		<repository>
 			<id>java.net</id>
 			<url>https://maven.java.net/content/groups/public/</url>
 		</repository>
 	</repositories>
 
+    <!--发现插件的远程仓库列表，这些插件用于构建和报表 -->
 	<pluginRepositories>
+	    <!--包含需要连接到远程插件仓库的信息.参见repositories/repository元素 -->
 		<pluginRepository>
 			<id>apache.snapshots</id>
 			<url>http://repository.apache.org/snapshots</url>
@@ -69,7 +76,9 @@
 		</pluginRepository>
 	</pluginRepositories>
 
+    <!--该元素描述了项目相关的所有依赖。 这些依赖组成了项目构建过程中的一个个环节。它们自动从项目定义的仓库中下载。要获取更多信息，请看项目依赖机制。 -->
 	<dependencies>
+	    <!--参见dependencies/dependency元素 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -77,10 +86,12 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
+	<!--在列的项目构建profile，如果被激活，会修改构建处理 -->
 	<profiles>
+		<!--根据环境参数或命令行参数激活某个构建处理 -->
 		<!-- Profile which creates an assembly using jpbc-distro.xml -->
 		<profile>
+			<!--构建配置的唯一标识符。即用于命令行激活，也用于在继承时合并具有相同标识符的profile。 -->
 			<id>distro</id>
 			<build>
 				<plugins>
@@ -95,6 +106,7 @@
 					</plugin>
 				</plugins>
 			</build>
+			<!--自动触发profile的条件逻辑。Activation是profile的开启钥匙。profile的力量来自于它 能够在某些特定的环境中自动使用某些特定的值；这些环境通过activation元素指定。activation元素并不是激活profile的唯一方式。 -->
 			<activation>
 				<property>
 					<name>distro</name>
@@ -113,6 +125,7 @@
 			</distributionManagement>
 			<build>
 				<plugins>
+					<!--参见build/pluginManagement/plugins/plugin元素 -->
 					<plugin>
 						<artifactId>maven-assembly-plugin</artifactId>
 						<version>2.2-beta-1</version>
@@ -148,7 +161,9 @@
 		</profile>
 	</profiles>
 
+	<!--构建项目需要的信息 -->
 	<build>
+		<!--使用来自该项目的一系列构建扩展 -->
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -156,7 +171,7 @@
 				<version>1.0-beta-2</version>
 			</extension>
 		</extensions>
-
+		<!--使用的插件列表 -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
